@@ -117,7 +117,7 @@ JumpZ X
 Halt 
 * HALT1: PC <= 0 
 
-## Data Path
+## Datapath
 
 The micro-archetecture for the CPU datapath:
 
@@ -129,12 +129,12 @@ The LPM library was used to build the CPU. It offers verified VHDL designs of ba
 
 The micro-archetecture for the CPU control unit:
 
-*to be updated
+* to be updated
 
 ## Source Code - 8BitCPUDatapath.vhd
 
-*to be updated
+* to be updated
 
 ## Source Code - 8BitCPUControlUnit.vhd
 
-*to be updated
+* to be updated
