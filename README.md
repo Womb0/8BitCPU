@@ -43,12 +43,12 @@ X is an 8-bit data or address value.
 
 ## RTL Statements
 
-The RTL statements to structure the micro-archetecture.
+The developed RTL statements to structure the micro-archetecture.
  
 Fetch 
-* Fetch 1: MAR <= PC 
-* Fetch 2: DR <= M[MAR], PC <= PC + 1 
-* Fetch 3: IR <= DR
+* Fetch1: MAR <= PC 
+* Fetch2: DR <= M[MAR], PC <= PC + 1 
+* Fetch3: IR <= DR
 
 Loadi x 
 * LOADIX1: MAR <= PC 
@@ -58,8 +58,8 @@ Loadi x
 Load x 
  * LOADX1: MAR <= PC 
  * LOADX2: DR <= M[MAR], PC <= PC + 1 
- * LOADIX3: MAR <= DR 
- * LOADIX4: A <= M[MAR] 
+ * LOADX3: MAR <= DR 
+ * LOADX4: A <= M[MAR] 
  
 Store x 
 * STOREX1: MAR <= PC 
@@ -71,12 +71,12 @@ Store x
 Add 
 * ADD1: A <= A + R 
 
-Add IX 
+Addi X 
 * ADDIX1: MAR <= PC 
 * ADDIX2: DR <= M[MAR], PC <= PC + 1 
 * ADDIX3: A <= A + DR
 
-Sub IX 
+Subi X 
 * SUBIX1: MAR <= PC 
 * SUBIX2: DR <= M[MAR], PC <= PC + 1 
 * SUBIX3: A <= A - DR 
@@ -85,13 +85,13 @@ Add x
 * ADDX1: MAR <= PC 
 * ADDX2: DR <= M[MAR], PC <= PC + 1 
 * ADDX3: MAR <= DR 
-* ADDX3: A <= A + M[MAR] 
+* ADDX4: A <= A + M[MAR] 
 
 Sub x  
 * SUBX1: MAR <= PC 
 * SUBX2: DR <= M[MAR], PC <= PC + 1 
 * SUBX3: MAR <= DR 
-* SUBX3: A <= A - M[MAR] 
+* SUBX4: A <= A - M[MAR] 
 
 Sub 
 * SUB1: A <= A - R 
@@ -109,10 +109,32 @@ Jump x
 * JUMPX1: MAR <= PC 
 * JUMPX2: PC <= M[MAR] 
 
-Jump ZX 
+JumpZ X 
 * JUMPZ1: MAR <= PC 
-* DR <= M[MAR], PC<= PC + 1 
-* JUMPZ2: IF (Z = 1) THEN PC <= DR 
+* JUMPZ2: DR <= M[MAR], PC <= PC + 1 
+* JUMPZ3: IF (Z = 1) THEN PC <= DR 
 
 Halt 
 * HALT1: PC <= 0 
+
+## Data Path
+
+The micro-archetecture for the CPU datapath:
+
+![alt text](https://github.com/Womb0/8BitCPU/blob/master/8bitCPUDesign.png "CPU Datapath")
+
+The LPM library was used to build the CPU. It offers verified VHDL designs of basic digital design circuits. Each block is a register or multiplexer. The upper right corner is the title of the block and lower right corner its LPM module, with the lpm's in/out signals around the block.
+
+## Control Unit
+
+The micro-archetecture for the CPU control unit:
+
+*to be updated
+
+## Source Code - 8BitCPUDatapath.vhd
+
+*to be updated
+
+## Source Code - 8BitCPUControlUnit.vhd
+
+*to be updated
