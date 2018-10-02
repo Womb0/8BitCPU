@@ -27,7 +27,7 @@ signal uPC_mux_sel: std_logic_vector(0 to 0);
 signal uPC_mux_out: std_logic_vector(7 downto 0);
 begin 
   for_label: for i in 0 to 7 generate
-       uPC_mux_data(0, i) <= uROM_out(uROM_width-8+i);
+       uPC_mux_data(0, i) <= uROM_out(uROM_width-7+i);
        uPC_mux_data(1, i) <= opcode(i);
   end generate;
   uPC_mux_sel(0) <= uROM_out(uROM_width-8);
