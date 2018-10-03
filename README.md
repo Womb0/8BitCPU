@@ -123,17 +123,27 @@ The micro-archetecture for the CPU datapath:
 
 ![alt text](https://github.com/Womb0/8BitCPU/blob/master/8bitCPUDesign.png "CPU Datapath")
 
-The LPM library was used to build the CPU. It offers verified VHDL designs of basic digital design circuits. Each block is a register or multiplexer. The upper right corner is the title of the block and lower right corner its LPM module, with the lpm's in/out signals around the block.
+The LPM library was used to build the CPU. It offers verified VHDL designs of basic digital design circuits. Each block is a register or multiplexer. The upper right corner is the title of the block and lower right corner its LPM module, with the lpm's in/out signals around the block. All signals are 8 bits wide unless otherwise specified, other than control signals (en/sel/write) which are 1 bit wide.
 
 ## Control Unit
 
-The micro-archetecture for the CPU control unit:
+The micro-architecture for the CPU control unit:
 
-* to be updated
+![alt text](https://github.com/Womb0/8BitCPU/blob/master/8bitCPUuSeq.png "CPU Control Unit")
+
+Also built with the LPM library. *Opcode* is the IR register for the first fetch execution. *uPC_enable* is the signal to load the next set of uops. *uPC_clear* loads all zeros into the uPC register and points to the first uop in the ROM. One cycle is lost here as the NOP command is located at uROM location 0x00, which then points to the proper FETCH command. The uROM content is compiled in **uromcontent.mif**. 
 
 ## Source Code - 8BitCPUDatapath.vhd
 
-* to be updated
+This defines the CPU data path in VHDL. The entity block has 3 inputs, *clk*, *pause*, and *clear*. *clk* is the system clock and routed from the board. The other 2 are buttons on the board. *Pause* is meant to temporarily stop clock progression while asserted. *Clear* is sent to the microsequencer to clear the uPC register that points to a uROM address. This allows for proper sequencing (should be asserted once before first clock cycle, that is, the first *cout* clock cycle discussed later.)
+
+The architecture block first has two component inclusions, the uSequencer and a decoder. The decoder allows for debugging and decodes particular registers and outputs them to a seven-segment-display.
+
+All the signals are then created. These are all the mux, register, and control I/O signals. This includes *cout*, which is a signal for an incrementing counter on the system clock *clk*. This allows for changing (slowing) the clock frequency by adjusting the counter's width.
+
+The counter is then defined and assigned *cout*. This is followed by the mux data initialization, with some use of generate and logic statments.
+
+Next, the control signals are defined. *upc_enable* is later sent as the uSeq input to lead the next uOp set, and so is the AND of the *cout* clock and NOT *pause*. The rest of the control signals are then the AND of its particular *uop* bit and *upc_enable*. The rest of the file then defines and connects the data path modules as described above. Notable here is that a RAM.mif file must be provided and linked to run a program. Also some decoders are defined for monitoring.
 
 ## Source Code - 8BitCPUControlUnit.vhd
 
