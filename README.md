@@ -147,4 +147,6 @@ Next, the control signals are defined. *upc_enable* is later sent as the uSeq in
 
 ## Source Code - 8BitCPUControlUnit.vhd
 
-* to be updated
+This defines the CPU control unit in VHDL. The code base was provided by Dr. Hou at NJIT and then modified for use in this project, where the correct connections were made and proper uROM instructions accomidated. The code is defined by the diagram, with a 28-bit wide uROM instruction, with the lowest 8-bits the next uROM instruction, the 9th bit the MAP bit to select the next uROM instruction on FETCH3, and the upper 19-bits the control signals to the data path.
+
+The outside signals are defined in the port statements, the signals between compnents after, and the components themselves further on. Generate statements connect the proper signals to the mux data inputs. The mux select bit is connected to the MAP bit.
